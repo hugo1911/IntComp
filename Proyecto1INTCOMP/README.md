@@ -1,12 +1,12 @@
-# 🔮 Hogwarts Sorting Hat Classifier
+#  Hogwarts Sorting Hat Classifier
 
-AI-powered web application that predicts your Hogwarts house using machine learning.
+Web application that predicts your Hogwarts house using machine learning.
 
 **Live Demo**: https://hogwarts-sorting-hat-358396978468.us-central1.run.app
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
@@ -187,7 +187,7 @@ def load_model():
 model, le = load_model()
 
 # Prediction interface
-st.title("🔮 THE SORTING HAT")
+st.title(" THE SORTING HAT")
 
 # Input features
 bravery = st.slider("Bravery", 1, 10, 5)
