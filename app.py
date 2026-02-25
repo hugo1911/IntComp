@@ -9,10 +9,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 st.set_page_config(
-    page_title="🔮 Hogwarts Sorting Hat",
+    page_title=" Hogwarts Sorting Hat",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={'About': "AI-powered Hogwarts House Classifier"}
+    menu_items={'About': "Hogwarts House Classifier"}
 )
 
 st.markdown("""
@@ -171,26 +171,24 @@ def load_model():
         model_path = "models/best_model_logistic_regression.joblib"
         le_path = "models/label_encoder.joblib"
         
-        # Debug: Check current directory and files
         cwd = os.getcwd()
         files_in_cwd = os.listdir(cwd)
         
         if not os.path.exists("models"):
-            st.error(f"❌ Models directory not found. CWD: {cwd}, Files: {files_in_cwd}")
+            st.error(f" Models directory not found. CWD: {cwd}, Files: {files_in_cwd}")
             return None, None, None
             
         if not os.path.exists(model_path):
-            st.error(f"❌ Model file not found: {model_path}")
+            st.error(f" Model file not found: {model_path}")
             return None, None, None
             
         if not os.path.exists(le_path):
-            st.error(f"❌ Label encoder not found: {le_path}")
+            st.error(f" Label encoder not found: {le_path}")
             return None, None, None
             
         model = joblib.load(model_path)
         le = joblib.load(le_path)
         
-        # Patch for sklearn compatibility
         from sklearn.linear_model import LogisticRegression
         steps = list(model.named_steps.values()) if hasattr(model, "named_steps") else [model]
         for step in steps:
@@ -203,13 +201,12 @@ def load_model():
         return model, le, "Logistic Regression"
     except Exception as e:
         import traceback
-        st.error(f"❌ Error loading model: {e}")
+        st.error(f" Error loading model: {e}")
         st.code(traceback.format_exc())
         return None, None, None
 
 @st.cache_data
 def load_dataset():
-    # Return None - dataset not needed for predictions, only for EDA tab
     return None
 
 model, le, model_name = load_model()
@@ -217,8 +214,8 @@ df = load_dataset()
 
 st.markdown("""
 <div class="app-header">
-    <h1>🔮 THE SORTING HAT</h1>
-    <p>Discover Your Hogwarts House Through AI Magic</p>
+    <h1> THE SORTING HAT</h1>
+    <p>Discover Your Hogwarts House Through Engineering Magic</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -226,7 +223,7 @@ st.markdown("""
 with st.sidebar:
     st.markdown("### About This Project")
     st.markdown("""
-    This AI-powered classifier uses machine learning to predict which Hogwarts house you belong to based on your personality traits and skills.
+    This classifier uses machine learning to predict which Hogwarts house you belong to based on your personality traits and skills.
     
     **Technology Stack**
     - Logistic Regression Model
@@ -246,7 +243,7 @@ with st.sidebar:
         st.markdown(f"**Houses:** {len(le.classes_)}")
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["🔮 Sorting Ceremony", "Data Insights", "Model Info", "About", "Credits"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs([" Sorting Ceremony", "Data Insights", "Model Info", "About", "Credits"])
 
 # TAB 1 - PREDICTION
 with tab1:
@@ -422,7 +419,7 @@ with tab2:
     with col1:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color:#e2c97e; margin:0;">📚 1,000+</h3>
+            <h3 style="color:#e2c97e; margin:0;"> 1,000+</h3>
             <p style="color:#a8b2c1; margin:5px 0 0 0;">Training Records</p>
         </div>
         """, unsafe_allow_html=True)
@@ -431,7 +428,7 @@ with tab2:
         
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color:#e2c97e; margin:0;">🎯 9</h3>
+            <h3 style="color:#e2c97e; margin:0;"> 9</h3>
             <p style="color:#a8b2c1; margin:5px 0 0 0;">Input Features</p>
         </div>
         """, unsafe_allow_html=True)
@@ -439,7 +436,7 @@ with tab2:
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color:#e2c97e; margin:0;">🏰 4</h3>
+            <h3 style="color:#e2c97e; margin:0;"> 4</h3>
             <p style="color:#a8b2c1; margin:5px 0 0 0;">House Classes</p>
         </div>
         """, unsafe_allow_html=True)
@@ -510,7 +507,7 @@ with tab3:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("### 📋 Model Performance")
+            st.markdown("###  Model Performance")
             metrics_df = pd.DataFrame({
                 "Metric": ["Accuracy", "F1-Score", "Balanced Accuracy"],
                 "Train": ["92%", "90%", "90%"],
@@ -519,19 +516,19 @@ with tab3:
             st.dataframe(metrics_df, use_container_width=True, hide_index=True)
         
         with col2:
-            st.markdown("### 🏰 Target Classes")
+            st.markdown("###  Target Classes")
             houses_df = pd.DataFrame({
                 "House": ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
                 "Core Trait": ["Bravery", "Loyalty", "Intelligence", "Ambition"]
             })
             st.dataframe(houses_df, use_container_width=True, hide_index=True)
         
-        st.markdown("### 🔧 Feature Engineering Pipeline")
+        st.markdown("###  Feature Engineering Pipeline")
         st.markdown("""
         1. **Imputation**: Median for numeric, mode for categorical
         2. **Scaling**: StandardScaler for numeric features
         3. **Encoding**: OneHotEncoder for categorical features
-        4. **Classification**: Logistic Regression with L2 regularization
+        4. **Classification**: Logistic Regression 
         """)
     else:
         st.error("Model not loaded.")
@@ -544,13 +541,13 @@ with tab4:
     
     with col1:
         st.markdown("""
-        ### 🎓 Project Overview
+        ###  Project Overview
         
         This application demonstrates the power of machine learning in personality classification. 
         Using a dataset of Hogwarts students, we've trained a model to predict which house 
         best suits an individual based on their traits and abilities.
         
-        ### 🔬 Methodology
+        ###  Methodology
         
         1. **Data Collection**: Harry Potter Sorting Dataset from Kaggle
         2. **Exploratory Analysis**: Understanding feature distributions and correlations
@@ -592,12 +589,6 @@ with tab4:
         - **Target**: 4 classes (houses)
         - **Balance**: Relatively balanced across classes
         
-        ### Future Enhancements
-        
-        - Deep learning models (Neural Networks)
-        - More personality traits and features
-        - Historical character predictions
-        - Multi-language support
         """)
 
 # TAB 5 - CREDITS
@@ -676,6 +667,6 @@ with tab5:
 st.markdown("---")
 st.markdown("""
 <div style="text-align:center; color:#9aa3af; font-size:0.9rem; padding:20px;">
-    🔮 Hogwarts Sorting Hat Classifier | Built using Streamlit & Scikit-learn | Deployed on Google Cloud Run
+     Hogwarts Sorting Hat Classifier | Built using Streamlit & Scikit-learn | Deployed on Google Cloud Run
 </div>
 """, unsafe_allow_html=True)
